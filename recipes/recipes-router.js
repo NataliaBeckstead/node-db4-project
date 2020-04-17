@@ -14,36 +14,36 @@ router.get('/', (req, res) => {
         });
 });
 
-// router.get('/:id/shoppingList', (req, res) => {
-//   const { id } = req.params;
+router.get('/:id/shoppingList', (req, res) => {
+  const { id } = req.params;
 
-//   Recipes.findById(id)
-//   .then(scheme => {
-//     if (scheme) {
-//       res.json(scheme);
-//     } else {
-//       res.status(404).json({ message: 'Could not find scheme with given id.' })
-//     }
-//   })
-//   .catch(err => {
-//     res.status(500).json({ message: 'Failed to get schemes' });
-//   });
-// });
+  Recipes.getShoppingList(id)
+  .then(list => {
+    if (list) {
+      res.json(list);
+    } else {
+      res.status(404).json({ message: 'Could not find shopping list with given id.' })
+    }
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'Failed to get shopping list' });
+  });
+});
 
-// router.get('/:id/instructions', (req, res) => {
-//   const { id } = req.params;
+router.get('/:id/instructions', (req, res) => {
+  const { id } = req.params;
 
-//   Recipes.findSteps(id)
-//   .then(steps => {
-//     if (steps.length) {
-//       res.json(steps);
-//     } else {
-//       res.status(404).json({ message: 'Could not find steps for given scheme' })
-//     }
-//   })
-//   .catch(err => {
-//     res.status(500).json({ message: 'Failed to get steps' });
-//   });
-// });
+  Recipes.getInstructions(id)
+  .then(steps => {
+    if (steps.length) {
+      res.json(steps);
+    } else {
+      res.status(404).json({ message: 'Could not find steps for given recipe' })
+    }
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'Failed to get steps' });
+  });
+});
 
 module.exports = router;
